@@ -6,7 +6,18 @@
 #include "executor.h"
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
+    bool interactive = true;
+
+    if (argc > 1) {
+        if (freopen(argv[1], "r", stdin) == NULL) {
+            cerr << "Can't read from script file " << argv[1] << endl;
+            cerr << "Exiting." << endl;
+            return 1;
+        }
+        interactive = false;
+    }
+    
     while (true) {
         string buff;
 

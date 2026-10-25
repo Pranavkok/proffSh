@@ -16,7 +16,8 @@ void run_command(const vector<string>& args) {
 
     if (pid > 0) {
         wait(NULL);
-    } else {
+    }
+    else {
         if (handle_redirects(args_c) == -1 || args_c[0] == nullptr) {
             cerr << "Invalid redirect" << endl;
             _exit(1);
