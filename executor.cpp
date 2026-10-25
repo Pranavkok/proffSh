@@ -2,6 +2,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <sys/wait.h>
+#include "redirector.h"
 using namespace std;
 
 void run_command(const vector<string>& args) {
@@ -16,6 +17,10 @@ void run_command(const vector<string>& args) {
     if (pid > 0) {
         wait(NULL);
     } else {
+        if (handle_redirects(args_c) == -1 || args_c[0] == nullptr) {
+            cerr << "Invalid redirect" << endl;
+            _exit(1);
+        }
         execvp(args_c[0], args_c.data());
         cerr << "Invalid command: " << args[0] << endl;
         _exit(1);
